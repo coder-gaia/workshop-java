@@ -1,4 +1,4 @@
-package com.xandeG.workshop.repository;
+package com.xandeG.workshop.repositories;
 
 import com.xandeG.workshop.domain.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
