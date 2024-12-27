@@ -1,5 +1,6 @@
 package com.xandeG.workshop.resource;
 
+import com.xandeG.workshop.DTO.UserDTO;
 import com.xandeG.workshop.domain.User;
 import com.xandeG.workshop.repositories.UserRepository;
 import com.xandeG.workshop.services.UserService;
@@ -18,9 +19,10 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<User>> indAll(){
+    public ResponseEntity<List<UserDTO>> indAll(){
         List<User> list = userService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDTO = list.stream().map(UserDTO::new).toList();
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @PostMapping("/new")
