@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class UserDTO implements Serializable {
