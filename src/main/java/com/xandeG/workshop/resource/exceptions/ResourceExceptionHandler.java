@@ -1,5 +1,6 @@
-package com.xandeG.workshop.services.exception;
+package com.xandeG.workshop.resource.exceptions;
 
+import com.xandeG.workshop.services.exception.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +31,16 @@ public class UserResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-        User obj = userService.findById(id).orElseThrow();
+        User obj = userService.findById(id);
         return ResponseEntity.ok().body(new UserDTO(obj));
     }
 
 
     @PostMapping("/new")
-    public ResponseEntity<User> create(@RequestBody User user){
-        return new ResponseEntity<>(userService.create(user), HttpStatusCode.valueOf(201));
+    public ResponseEntity<Void> create(@RequestBody UserDTO userDTO){
+        User obj = userService.fromDTO(userDTO);
+        obj = userService.create(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }

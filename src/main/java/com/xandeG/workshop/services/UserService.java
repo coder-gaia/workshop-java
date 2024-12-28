@@ -1,5 +1,6 @@
 package com.xandeG.workshop.services;
 
+import com.xandeG.workshop.DTO.UserDTO;
 import com.xandeG.workshop.domain.User;
 import com.xandeG.workshop.repositories.UserRepository;
 import com.xandeG.workshop.services.exception.ObjectNotFoundException;
@@ -20,14 +21,16 @@ public class UserService {
     }
 
     public User create(User user){
-        return userRepository.save(user);
+        return userRepository.insert(user);
     }
 
-    public Optional<User> findById(String id){
-        Optional<User> user = userRepository.findById(id);
-        if(user == null){
-            throw new ObjectNotFoundException("There is no user with id: " + id + ".");
-        }
-        return user;
+    public User fromDTO(UserDTO obj){
+        return new User(obj.getId(), obj.getName(), obj.getEmail());
     }
+
+    public User findById(String id) {
+        Optional<User> obj = userRepository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("User with id: " + id + " wasn't found."));
+    }
+
 }
