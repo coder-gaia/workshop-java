@@ -2,18 +2,14 @@ package com.xandeG.workshop.resource;
 
 import com.xandeG.workshop.DTO.UserDTO;
 import com.xandeG.workshop.domain.User;
-import com.xandeG.workshop.repositories.UserRepository;
 import com.xandeG.workshop.services.UserService;
-import com.xandeG.workshop.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -35,12 +31,17 @@ public class UserResource {
         return ResponseEntity.ok().body(new UserDTO(obj));
     }
 
-
     @PostMapping("/new")
     public ResponseEntity<Void> create(@RequestBody UserDTO userDTO){
         User obj = userService.fromDTO(userDTO);
         obj = userService.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

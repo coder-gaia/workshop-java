@@ -33,4 +33,9 @@ public class UserService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("User with id: " + id + " wasn't found."));
     }
 
+    public void delete(String id){
+        findById(id);
+        userRepository.deleteById(id);
+    }
+
 }
