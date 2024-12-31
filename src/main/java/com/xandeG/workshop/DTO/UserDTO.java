@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Optional;
 
 
 public class UserDTO implements Serializable {
@@ -21,7 +20,6 @@ public class UserDTO implements Serializable {
     public UserDTO(User obj){
         id = obj.getId();
         name = obj.getName();
-        email = obj.getEmail();
     }
 
     public String getId() {

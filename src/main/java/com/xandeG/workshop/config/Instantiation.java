@@ -1,5 +1,6 @@
 package com.xandeG.workshop.config;
 
+import com.xandeG.workshop.DTO.AuthorDTO;
 import com.xandeG.workshop.domain.Post;
 import com.xandeG.workshop.domain.User;
 import com.xandeG.workshop.repositories.PostRepository;
@@ -36,10 +37,11 @@ public class Instantiation implements CommandLineRunner {
         User monica = new User(null, "Monica Suarez", "mon@gmail.com");
         User cecile = new User(null, "Cecile Johnson", "cecl@gmail.com");
 
-        Post post1 = new Post(null, sdf.parse("21/03/2018"), "Road trip!!", "I am off to London with some friends!", jake);
-        Post post2 = new Post(null, sdf.parse("10/12/2024"), "Achievements!", "Today marks 1 year clean!", cecile);
-
         userRepository.saveAll(Arrays.asList(jake, monica, cecile));
+
+        Post post1 = new Post(null, sdf.parse("21/03/2018"), "Road trip!!", "I am off to London with some friends!", new AuthorDTO(jake));
+        Post post2 = new Post(null, sdf.parse("10/12/2024"), "Achievements!", "Today marks 1 year clean!", new AuthorDTO(cecile));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }
