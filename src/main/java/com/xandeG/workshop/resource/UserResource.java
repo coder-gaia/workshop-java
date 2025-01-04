@@ -1,6 +1,7 @@
 package com.xandeG.workshop.resource;
 
 import com.xandeG.workshop.DTO.UserDTO;
+import com.xandeG.workshop.domain.Post;
 import com.xandeG.workshop.domain.User;
 import com.xandeG.workshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,11 @@ public class UserResource {
         obj = userService.update(obj);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = userService.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
+
 }
