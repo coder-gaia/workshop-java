@@ -1,10 +1,7 @@
 package com.xandeG.workshop.services;
 
-import com.xandeG.workshop.DTO.UserDTO;
 import com.xandeG.workshop.domain.Post;
-import com.xandeG.workshop.domain.User;
 import com.xandeG.workshop.repositories.PostRepository;
-import com.xandeG.workshop.repositories.UserRepository;
 import com.xandeG.workshop.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +25,7 @@ public class PostService {
     }
 
     public List<Post> findByTitle(String text){
-        return postRepository.findByTitleContainingIgnoreCase(text);
+        return postRepository.searchTitle(text);
     }
 
 
